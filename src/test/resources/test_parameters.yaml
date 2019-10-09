@@ -1,0 +1,35 @@
+applications:
+  - name: application1
+    mainClass: com.test.example.MainClass1
+    files:
+      - app1_file1.txt
+      - app1_file2.txt
+      - app1_file3.csv
+    appArgs: [
+      "-c", "identificador=Eletroportáteis",
+      "-s", "/path/to/source",
+      "-c", "grupo=2",
+      "-o", "/path/to/destination"
+      ]
+    jars:
+      - app1.jar
+      - app2.jar
+    pyFiles:
+      - file1.py
+      - file2.py
+      - file3.py
+
+    sparkArgs:
+      - --supervise
+    directory: /path/to/workdir
+    redirectError: false
+    appResource: mainResource.jar
+    confs:
+      spark.fs.s3a.impl: org.apache.spark.fs.S3AFileSystem
+      spark.fs.gs.impl: org.apache.spark.gs.GSFileSystem
+    deployMode: cluster
+    master: local[*]
+    verbose: true
+
+  - name: application2
+    mainClass: com.test.example.MainClass2
