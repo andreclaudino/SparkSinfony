@@ -3,7 +3,7 @@ package com.b2wdigital.iafront.spark.launcher
 import java.io.FileInputStream
 import java.util.concurrent.CountDownLatch
 
-import com.b2wdigital.iafront.spark.launcher.configuration.ConfigurationsLoader
+import com.b2wdigital.iafront.spark.launcher.configuration.loader.ConfigurationsLoader
 import com.b2wdigital.iafront.spark.launcher.listeners.ConsoleListener
 import org.apache.spark.launcher.SparkLauncher
 

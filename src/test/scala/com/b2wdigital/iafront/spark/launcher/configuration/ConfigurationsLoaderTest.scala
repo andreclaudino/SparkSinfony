@@ -1,5 +1,6 @@
 package com.b2wdigital.iafront.spark.launcher.configuration
 
+import com.b2wdigital.iafront.spark.launcher.configuration.loader.ConfigurationsLoader
 import org.scalatest.{Matchers, WordSpec}
 
 import scala.io.Source
