@@ -1,4 +1,4 @@
-name := "BigDataOrquestrator"
+name := "SparkSinfony"
 
 version := "0.1"
 
