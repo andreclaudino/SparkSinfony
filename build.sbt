@@ -1,4 +1,4 @@
-name := "SparkK8sLauncher"
+name := "BigDataOrquestrator"
 
 version := "0.1"
 
