@@ -33,3 +33,4 @@ applications:
 
   - name: application2
     mainClass: com.test.example.MainClass2
+    appResource: mainResource2.jar

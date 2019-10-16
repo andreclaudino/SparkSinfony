@@ -15,8 +15,8 @@ class ConfigurationsLoaderTest extends WordSpec with Matchers {
   private val configurations = new ConfigurationsLoader(testSubmit1)
 
   private val pipelineConfig = configurations.pipelineConfiguration
-  private val app1Configuration = pipelineConfig.applications.get.filter(_.name == "application1").head
-  private val app2Configuration = pipelineConfig.applications.get.filter(_.name == "application2").head
+  private val app1Configuration = pipelineConfig.applications.filter(_.name == "application1").head
+  private val app2Configuration = pipelineConfig.applications.filter(_.name == "application2").head
 
   private def yamlSource(sourcePath:String):String = {
     val fileStream = getClass.getResourceAsStream(sourcePath)
@@ -26,27 +26,19 @@ class ConfigurationsLoaderTest extends WordSpec with Matchers {
   "PipelineConfiguration" should {
 
     "should return list of names" in {
-      pipelineConfig.applications match {
-        case Some(applications) =>
-          val result = applications.map {
-            application =>
-              application.name
-          }
-          result shouldBe applicationNamesList
-        case None => fail
+      val result = pipelineConfig.applications.map {
+        application =>
+          application.name
       }
+      result shouldBe applicationNamesList
     }
 
     "should return list of mainClasses" in {
-      pipelineConfig.applications match {
-        case Some(applications) =>
-          val result = applications.map {
-            application =>
-              application.mainClass
-          }
-          result shouldBe applicationMainClassList
-        case None => fail
+      val result = pipelineConfig.applications.map {
+        application =>
+          application.mainClass
       }
+      result shouldBe applicationMainClassList
     }
   }
 
@@ -98,8 +90,8 @@ class ConfigurationsLoaderTest extends WordSpec with Matchers {
     }
 
     "appResource should return string for application1 and None for application2" in {
-      app1Configuration.appResource shouldBe Some("mainResource.jar")
-      app2Configuration.appResource shouldBe None
+      app1Configuration.appResource shouldBe "mainResource.jar"
+      app2Configuration.appResource shouldBe "mainResource2.jar"
     }
 
     "confs should return map for application1 and None for application2" in {
