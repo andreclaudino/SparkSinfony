@@ -19,3 +19,7 @@ project/plugins/project/
 job_parameter_pi.yaml
 
 job_paramter.yaml
+
+deployment/SparkSinfony-0.1.jar
+
+*.jar

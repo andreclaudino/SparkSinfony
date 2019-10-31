@@ -1,4 +1,4 @@
-name := "BigDataOrquestrator"
+name := "SparkSinfony"
 
 version := "0.1"
 
@@ -8,7 +8,7 @@ val sparkVersion = "2.4.4"
 
 libraryDependencies ++= Seq(
   "org.apache.spark"        %%  "spark-core"                   % sparkVersion,
-  "com.b2wdigital.iafront"  %%  "simple-command-line-parser" % "1.1-SNAPSHOT",
+  "com.b2wdigital.iafront"  %%  "simple-command-line-parser" % "1.3",
   "net.jcazevedo" %% "moultingyaml" % "0.4.1",
 
   "org.scalatest" %% "scalatest" % "3.0.8" % "test"
