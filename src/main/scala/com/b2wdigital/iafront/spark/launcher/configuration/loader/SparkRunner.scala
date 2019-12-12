@@ -2,7 +2,7 @@ package com.b2wdigital.iafront.spark.launcher.configuration.loader
 
 import java.util.concurrent.CountDownLatch
 
-import com.b2wdigital.iafront.spark.launcher.SparkConstants
+import com.b2wdigital.iafront.spark.launcher.SparkDefaults
 import com.b2wdigital.iafront.spark.launcher.configuration.entities
 import com.b2wdigital.iafront.spark.launcher.configuration.entities.PipelineConfiguration
 import com.b2wdigital.iafront.spark.launcher.listeners.ConsoleListener
@@ -10,7 +10,7 @@ import org.apache.spark.launcher.SparkLauncher
 
 object SparkRunner {
 
-  def runFromConfig(configuration:PipelineConfiguration) = {
+  def runFromConfig(configuration:PipelineConfiguration):Unit = {
     configuration.applications.foreach({
       application =>
         val countDownLatch = new CountDownLatch(1)
@@ -24,16 +24,16 @@ object SparkRunner {
   private def createLauncher(application: entities.ApplicationConfiguration) = {
     val launcherWithoutConfig =
       new SparkLauncher()
-        .setMaster(application.master.get)
+        .setMaster(application.master.getOrElse("k8s://kubernetes.default.svc"))
         .setMainClass(application.mainClass)
         .setAppResource(application.appResource)
         .addAppArgs(application.appArgs.get: _*)
-        .setConf("spark.driver.bindAddress", SparkConstants.sparkDriverBindAddress)
-        .setConf("spark.blockManager.port", SparkConstants.sparkBlockManagerPort)
-        .setConf("spark.driver.port", SparkConstants.sparkDriverPort)
+        .setAppName(application.name)
+
+    val laucherWithDefaults = applyConf(launcherWithoutConfig, SparkDefaults.sparkK8sDefaults)
 
     application.confs match {
-      case Some(configs) => applyConf(launcherWithoutConfig, configs)
+      case Some(configs) => applyConf(laucherWithDefaults, configs)
       case None => launcherWithoutConfig
     }
   }
