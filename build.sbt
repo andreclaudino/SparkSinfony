@@ -1,17 +1,23 @@
-name := "SparkSinfony"
+import xerial.sbt.Sonatype.GitHubHosting
+
+name := "spark-sinfony"
 
 version := "0.1"
 
 scalaVersion := "2.11.12"
+enablePlugins(GitBranchPrompt)
+git.gitTagToVersionNumber := { tag: String =>
+  if(tag matches "v[0-9]+\\..*") Some(tag)
+  else None
+}
 
 val sparkVersion = "2.4.4"
 
 libraryDependencies ++= Seq(
-  "org.apache.spark"        %%  "spark-core"                   % sparkVersion,
-  "com.b2wdigital.iafront"  %%  "simple-command-line-parser" % "1.3",
-  "net.jcazevedo" %% "moultingyaml" % "0.4.1",
-
-  "org.scalatest" %% "scalatest" % "3.0.8" % "test"
+  "org.apache.spark"        %%  "spark-core"                    % sparkVersion,
+  "com.b2wdigital.iafront"  %%  "simple-command-line-parser"    % "1.3",
+  "net.jcazevedo"           %%  "moultingyaml"                  % "0.4.1",
+  "org.scalatest"           %%  "scalatest"                     % "3.0.8"       % "test"
 )
 
 /// Configurações para execução
@@ -51,3 +57,20 @@ artifact in (Compile, assembly) := {
   art.withClassifier(Some("assembly"))
 }
 addArtifact(artifact in (Compile, assembly), assembly)
+
+
+/// Publishing
+publishConfiguration := publishConfiguration.value.withOverwrite(true)
+publishLocalConfiguration := publishLocalConfiguration.value.withOverwrite(true)
+publishMavenStyle := true
+
+licenses := Seq("APL2" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt"))
+
+sonatypeProfileName := "com.b2wdigital"
+publishTo := sonatypePublishToBundle.value
+sonatypeProjectHosting := Some(GitHubHosting("andreclaudino", "SparkSinfony", ""))
+
+homepage := Some(url("https://github.com/andreclaudino/SparkSinfony"))
+scmInfo := Some(
+  ScmInfo(url("https://github.com/andreclaudino/SparkSinfony"), "scm:git@github.com:andreclaudino/SparkSinfony.git")
+)

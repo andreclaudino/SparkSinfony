@@ -10,5 +10,6 @@ package object entities {
                        redirectError:Option[Boolean], appResource:String,
                        confs:Option[Map[String, String]], deployMode:Option[String],
                        master:Option[String], verbose:Option[Boolean])
+
   case class PipelineConfiguration(applications:List[ApplicationConfiguration])
 }
