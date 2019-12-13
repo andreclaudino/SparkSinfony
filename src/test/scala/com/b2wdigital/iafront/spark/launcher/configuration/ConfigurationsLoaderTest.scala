@@ -85,11 +85,6 @@ class ConfigurationsLoaderTest extends WordSpec with Matchers {
       app2Configuration.directory shouldBe None
     }
 
-    "directory should return boolean for application1 and None for application2" in {
-      app1Configuration.redirectError shouldBe Some(false)
-      app2Configuration.redirectError shouldBe None
-    }
-
     "appResource should return string for application1 and None for application2" in {
       app1Configuration.appResource shouldBe "mainResource.jar"
       app2Configuration.appResource shouldBe "mainResource2.jar"
@@ -102,19 +97,9 @@ class ConfigurationsLoaderTest extends WordSpec with Matchers {
       app2Configuration.confs shouldBe None
     }
 
-    "deployMode should return string for application1 and None for application2" in {
-      app1Configuration.deployMode shouldBe Some("cluster")
-      app2Configuration.deployMode shouldBe None
-    }
-
     "master should return string for application1 and None for application2" in {
       app1Configuration.master shouldBe Some("local[*]")
       app2Configuration.master shouldBe None
-    }
-
-    "verbose should return boolean for application1 and None for application2" in {
-      app1Configuration.verbose shouldBe Some(true)
-      app2Configuration.verbose shouldBe None
     }
 
   }
