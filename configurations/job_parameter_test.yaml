@@ -1,0 +1,21 @@
+applications:
+  - name: clustering-bot
+    master: k8s://https://127.0.0.1:16443
+    mainClass: com.b2w.iafront.clustering.jobs.VisitsClustering
+    appArgs: [
+      "-o", "s3a://ia-front-jobs-data/visits-clustering",
+      "-c", "minData=2019-10-01",
+      "-c", "maxData=2019-11-01",
+      "-c", "filtro=(departamento IN ('Fun Kitchen')) AND (estado IN ('MT', 'GO', 'MS', 'DF'))",
+      "-c", "identificador=Eletroportáteis Centro Oeste 2019-10-01 ate 2019-11-01"
+    ]
+    appResource: local:///startup.jar
+    confs:
+      spark.executor.memory: 1g
+      spark.executor.instances: "2"
+
+      spark.driver.host: sinfony
+
+      spark.kubernetes.container.image: registry.b2w.io/ia-front/clustering:latest
+      spark.kubernetes.authenticate.driver.serviceAccountName: spark
+      spark.kubernetes.namespace: spark

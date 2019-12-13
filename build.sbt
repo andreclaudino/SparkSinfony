@@ -2,7 +2,7 @@ import xerial.sbt.Sonatype.GitHubHosting
 
 name := "spark-sinfony"
 
-version := "0.1"
+version := "0.2"
 
 scalaVersion := "2.11.12"
 enablePlugins(GitBranchPrompt)
@@ -58,6 +58,11 @@ artifact in (Compile, assembly) := {
 }
 addArtifact(artifact in (Compile, assembly), assembly)
 
+// Build do jar
+assembleArtifact in assemblyPackageScala := false
+assemblyJarName in assembly := s"${name.value}-${version.value}.jar"
+assemblyOption in assembly := (assemblyOption in assembly).value.copy(includeScala = false)
+assemblyOutputPath in assembly := new File(s"deployment/${name.value}-${version.value}.jar")
 
 /// Publishing
 publishConfiguration := publishConfiguration.value.withOverwrite(true)
