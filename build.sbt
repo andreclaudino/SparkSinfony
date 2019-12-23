@@ -1,6 +1,11 @@
 name := "SparkSinfony"
 
 version := "0.1"
+enablePlugins(GitBranchPrompt)
+git.gitTagToVersionNumber := { tag: String =>
+  if(tag matches "v[0-9]+\\..*") Some(tag)
+  else None
+}
 
 scalaVersion := "2.11.12"
 
