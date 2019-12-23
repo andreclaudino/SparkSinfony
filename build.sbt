@@ -14,6 +14,10 @@ libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "3.0.8" % "test"
 )
 
+// Build do jar
+assemblyJarName in assembly := s"${name.value}-${version.value}.jar"
+assemblyOutputPath in assembly := new File(s"deployment/${name.value}-${version.value}.jar")
+
 /// Configurações para execução
 run in Compile :=
   Defaults.runTask(fullClasspath in Compile, mainClass in (Compile, run), runner in (Compile, run)).evaluated

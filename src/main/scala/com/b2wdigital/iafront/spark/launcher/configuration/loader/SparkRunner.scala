@@ -24,7 +24,7 @@ object SparkRunner {
   private def createLauncher(application: entities.ApplicationConfiguration) = {
     val launcherWithoutConfig =
       new SparkLauncher()
-        .setMaster(application.master.get)
+        .setMaster(application.master.getOrElse("k8s://https://kubernetes.default.svc"))
         .setMainClass(application.mainClass)
         .setAppResource(application.appResource)
         .addAppArgs(application.appArgs.get: _*)

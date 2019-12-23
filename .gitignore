@@ -23,3 +23,5 @@ job_paramter.yaml
 deployment/SparkSinfony-0.1.jar
 
 *.jar
+
+validation/validation.yml
