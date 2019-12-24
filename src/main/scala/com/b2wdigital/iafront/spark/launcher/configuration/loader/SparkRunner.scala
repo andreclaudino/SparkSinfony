@@ -13,10 +13,12 @@ object SparkRunner {
   def runFromConfig(configuration:PipelineConfiguration) = {
     configuration.applications.foreach({
       application =>
+        println(s"Starting application '${application.name}'")
         val countDownLatch = new CountDownLatch(1)
         val listener = new StateListener(countDownLatch)
-        val launcherWithConfig: SparkLauncher = createLauncher(application)
+        val launcherWithConfig:SparkLauncher = createLauncher(application)
         launcherWithConfig.startApplication(listener)
+        println(s"Finishing application '${application.name}'")
         countDownLatch.await()
     })
   }
