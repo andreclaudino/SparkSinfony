@@ -9,8 +9,10 @@ class ConsoleListener(countDownLatch:CountDownLatch) extends Listener {
   override def stateChanged(handle: SparkAppHandle): Unit = {
     println(s"Spark App Id [${handle.getAppId}] State Changed. State [${handle.getState}]")
 
-    if(handle.getState == SparkAppHandle.State.FAILED)
-      countDownLatch.countDown()
+    handle.getState match {
+      case SparkAppHandle.State.FAILED | SparkAppHandle.State.LOST | SparkAppHandle.State.FINISHED =>
+        countDownLatch.countDown()
+    }
   }
 
   override def infoChanged(handle: SparkAppHandle): Unit = {
