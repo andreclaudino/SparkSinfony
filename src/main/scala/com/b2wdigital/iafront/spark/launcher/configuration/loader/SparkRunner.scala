@@ -5,7 +5,7 @@ import java.util.concurrent.CountDownLatch
 import com.b2wdigital.iafront.spark.launcher.SparkConstants
 import com.b2wdigital.iafront.spark.launcher.configuration.entities
 import com.b2wdigital.iafront.spark.launcher.configuration.entities.PipelineConfiguration
-import com.b2wdigital.iafront.spark.launcher.listeners.ConsoleListener
+import com.b2wdigital.iafront.spark.launcher.listeners.StateListener
 import org.apache.spark.launcher.SparkLauncher
 
 object SparkRunner {
@@ -14,7 +14,7 @@ object SparkRunner {
     configuration.applications.foreach({
       application =>
         val countDownLatch = new CountDownLatch(1)
-        val listener = new ConsoleListener(countDownLatch)
+        val listener = new StateListener(countDownLatch)
         val launcherWithConfig: SparkLauncher = createLauncher(application)
         launcherWithConfig.startApplication(listener)
         countDownLatch.await()

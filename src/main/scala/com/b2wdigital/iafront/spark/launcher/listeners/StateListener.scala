@@ -4,7 +4,7 @@ import org.apache.spark.launcher.SparkAppHandle
 import org.apache.spark.launcher.SparkAppHandle.Listener
 import java.util.concurrent.CountDownLatch
 
-class ConsoleListener(countDownLatch:CountDownLatch) extends Listener {
+class StateListener(countDownLatch:CountDownLatch) extends Listener {
 
   override def stateChanged(handle: SparkAppHandle): Unit = {
     println(s"Spark App Id [${handle.getAppId}] State Changed. State [${handle.getState}]")
