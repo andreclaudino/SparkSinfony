@@ -15,6 +15,7 @@ object Launch extends App {
       .pipelineConfiguration
 
   SparkRunner.runFromConfig(configuration)
+  sys.exit(0)
 
   private def yamlSource(sourcePath: String): String = {
     val fileStream = new FileInputStream(sourcePath)

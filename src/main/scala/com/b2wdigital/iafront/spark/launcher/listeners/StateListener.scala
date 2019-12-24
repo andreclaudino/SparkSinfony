@@ -10,8 +10,10 @@ class StateListener(countDownLatch:CountDownLatch) extends Listener {
     println(s"Spark App Id [${handle.getAppId}] State Changed. State [${handle.getState}]")
 
     handle.getState match {
-      case SparkAppHandle.State.FAILED | SparkAppHandle.State.LOST | SparkAppHandle.State.FINISHED =>
+      case SparkAppHandle.State.FAILED | SparkAppHandle.State.LOST | SparkAppHandle.State.FINISHED | SparkAppHandle.State.KILLED =>
         countDownLatch.countDown()
+      case state =>
+        println(s"Spark App Id [${handle.getAppId}] State Changed. State [$state]")
     }
   }
 
