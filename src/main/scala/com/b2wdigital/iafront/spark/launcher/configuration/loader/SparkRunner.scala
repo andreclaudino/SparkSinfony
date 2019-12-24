@@ -26,6 +26,7 @@ object SparkRunner {
       new SparkLauncher()
         .setMaster(application.master.getOrElse("k8s://https://kubernetes.default.svc"))
         .setMainClass(application.mainClass)
+        .setAppName(application.name)
         .setAppResource(application.appResource)
         .addAppArgs(application.appArgs.get: _*)
         .setConf("spark.driver.bindAddress", SparkConstants.sparkDriverBindAddress)
